@@ -1,2 +1,3 @@
 # goit-node-rest-api
-GOIT Node.js Homework REST API
+
+## GOIT Node.js Homework REST API
