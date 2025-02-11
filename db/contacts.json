@@ -1,62 +1,56 @@
 [
   {
-    "id": "AeHIrLTr6JkxGE6SN-0Rw",
+    "id": "cfb84565-5a16-4fcd-94d5-75fd33f73afd",
     "name": "Allen Raymond",
-    "email": "nulla.ante@vestibul.co.uk",
+    "email": "allen.raymond@example.com",
     "phone": "(992) 914-3792"
   },
   {
-    "id": "qdggE76Jtbfd9eWJHrssH",
+    "id": "31abfbf7-b0e9-4d3e-9187-bc46ea9caa28",
     "name": "Chaim Lewis",
-    "email": "dui.in@egetlacus.ca",
+    "email": "chaim.lewis@example.com",
     "phone": "(294) 840-6685"
   },
   {
-    "id": "drsAJ4SHPYqZeG-83QTVW",
+    "id": "da378f53-df9e-47a2-a2dd-7f9e9fe62639",
     "name": "Kennedy Lane",
-    "email": "mattis.Cras@nonenimMauris.net",
+    "email": "kennedy.lane@example.com",
     "phone": "(542) 451-7038"
   },
   {
-    "id": "vza2RIzNGIwutCVCs4mCL",
+    "id": "cee88490-248b-4fc6-99d3-1330356642f4",
     "name": "Wylie Pope",
-    "email": "est@utquamvel.net",
+    "email": "wylie.pope@example.com",
     "phone": "(692) 802-2949"
   },
   {
-    "id": "05olLMgyVQdWRwgKfg5J6",
+    "id": "7da52b07-dc8f-4d27-8f77-647c74392eef",
     "name": "Cyrus Jackson",
-    "email": "nibh@semsempererat.com",
+    "email": "cyrus.jackson@example.com",
     "phone": "(501) 472-5218"
   },
   {
-    "id": "1DEXoP8AuCGYc1YgoQ6hw",
+    "id": "9bfd45dc-cfdf-452f-9107-5bfb750fe4f4",
     "name": "Abbot Franks",
-    "email": "scelerisque@magnis.org",
+    "email": "abbot.franks@example.com",
     "phone": "(186) 568-3720"
   },
   {
-    "id": "Z5sbDlS7pCzNsnAHLtDJd",
+    "id": "4d9d9630-36f7-429d-8dc7-e3f44d557d6e",
     "name": "Reuben Henry",
-    "email": "pharetra.ut@dictum.co.uk",
+    "email": "reuben.henry@example.com",
     "phone": "(715) 598-5792"
   },
   {
-    "id": "C9sjBfCo4UJCWjzBnOtxl",
-    "name": "Simon Morton",
-    "email": "dui.Fusce.diam@Donec.com",
-    "phone": "(233) 738-2360"
-  },
-  {
-    "id": "e6ywwRe4jcqxXfCZOj_1e",
+    "id": "e5496665-c90c-4932-b2fe-309f17b6481e",
     "name": "Thomas Lucas",
-    "email": "nec@Nulla.com",
+    "email": "thomas.lucas@example.com",
     "phone": "(704) 398-7993"
   },
   {
-    "id": "rsKkOQUi80UsgVPCcLZZW",
+    "id": "70336962-fb30-4097-9948-1d212279e629",
     "name": "Alec Howard",
-    "email": "Donec.elementum@scelerisquescelerisquedui.net",
+    "email": "alec.howard@example.com",
     "phone": "(748) 206-2688"
   }
 ]
