@@ -29,6 +29,13 @@ const testApi = async () => {
         const updateRes = await axios.put(`${BASE_URL}/${createdContactId}`, updateData);
         logResponse("Update Contact", updateRes);
 
+        const favoriteUpdate = { favorite: true };
+        const favoriteRes = await axios.patch(`${BASE_URL}/${createdContactId}/favorite`, favoriteUpdate);
+        logResponse("Update Favorite Status", favoriteRes);
+
+        const verifyFavoriteRes = await axios.get(`${BASE_URL}/${createdContactId}`);
+        logResponse("Verify Favorite Status", verifyFavoriteRes);
+
         const deleteRes = await axios.delete(`${BASE_URL}/${createdContactId}`);
         logResponse("Delete Contact", deleteRes);
     } catch (error) {
