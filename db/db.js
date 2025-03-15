@@ -6,14 +6,14 @@ class Database {
             return Database.instance;
         }
 
-        this.sequelize = new Sequelize("goitnode", "anton", "DNmdeMDfZ7SqtA2TcB9XIhBQ2pXfD7yN", {
-            host: "dpg-culm82ggph6c73df16bg-a.virginia-postgres.render.com",
-            port: 5432,
+        this.sequelize = new Sequelize("defaultdb", "avnadmin", "*", {
+            host: "pg-goit-education-goit-education.c.aivencloud.com",
+            port: 10568,
             dialect: "postgres",
             dialectOptions: {
                 ssl: {
                     require: true,
-                    rejectUnauthorized: true
+                    rejectUnauthorized: false
                 }
             },
             logging: false,

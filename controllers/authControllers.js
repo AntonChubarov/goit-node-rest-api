@@ -20,10 +20,17 @@ export const login = async (req, res, next) => {
     try {
         validateBody(authSchema)(req, res, async () => {
             const {email, password} = req.body;
-            const result = await authService.loginUser(email, password);
-            res.status(200).json(result);
+
+            try {
+                const result = await authService.loginUser(email, password);
+                res.status(200).json(result);
+            } catch (error) {
+                console.error(`[AUTH] Login error: ${error.message}`);
+                next(error);
+            }
         });
     } catch (error) {
+        console.error(`[AUTH] Unexpected error in login: ${error.message}`);
         next(error);
     }
 };
@@ -40,7 +47,14 @@ export const logout = async (req, res, next) => {
 export const getCurrentUser = async (req, res, next) => {
     try {
         const user = await authService.getCurrentUser(req.user.id);
-        res.status(200).json(user);
+        if (!user) {
+            return next(HttpError(401, "Not authorized"));
+        }
+
+        res.status(200).json({
+            email: user.email,
+            subscription: user.subscription,
+        });
     } catch (error) {
         next(error);
     }

@@ -36,12 +36,15 @@ class AuthService {
 
     async loginUser(email, password) {
         const user = await usersRepository.findByEmail(email);
+
         if (!user) {
+            console.error(`[AUTH] Login failed: No user found for email ${email}`);
             throw HttpError(401, "Email or password is wrong");
         }
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) {
+            console.error(`[AUTH] Login failed: Incorrect password for email ${email}`);
             throw HttpError(401, "Email or password is wrong");
         }
 

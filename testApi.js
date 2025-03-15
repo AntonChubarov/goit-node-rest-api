@@ -55,6 +55,21 @@ const testApi = async () => {
     }
 
     try {
+        console.log("[Test 3.1] Fetching current user details");
+        const getCurrentUserRes = await axios.get(`${BASE_URL}/auth/current`, authHeaderA);
+        logResponse("Test 3.1", "Get Current User", getCurrentUserRes);
+
+        const {email, subscription, ...extraFields} = getCurrentUserRes.data;
+        if (email && subscription && Object.keys(extraFields).length === 0) {
+            console.log("[Test 3.1] Success: Correct current user response format.");
+        } else {
+            console.error("[Test 3.1] Error: Response contains extra fields:", getCurrentUserRes.data);
+        }
+    } catch (error) {
+        handleError("Test 3.1", "Get Current User", error);
+    }
+
+    try {
         console.log("[Test 4] Logging in User B");
         const userB = {email: "userB@example.com", password: "password456"};
         const loginUserB = await axios.post(`${BASE_URL}/auth/login`, userB);
@@ -69,7 +84,7 @@ const testApi = async () => {
         console.log("[Test 5] Creating Contacts for User A");
         const contacts = [
             {name: "Alice", email: "alice@example.com", phone: "(123) 456-7890"},
-            {name: "Bob", email: "bob@example.com", phone: "(987) 654-3210"}  // Removed favorite here
+            {name: "Bob", email: "bob@example.com", phone: "(987) 654-3210"}
         ];
 
         for (const contact of contacts) {
@@ -222,6 +237,19 @@ const testApi = async () => {
             console.log("[Test 16] Success: Access correctly denied after logout.");
         } else {
             handleError("Test 16", "Access Contacts After Logout (Should Fail)", error);
+        }
+    }
+
+    try {
+        console.log("[Test 17] Logging in with an unregistered email");
+        const fakeUser = {email: "unregistered@example.com", password: "password123"};
+        await axios.post(`${BASE_URL}/auth/login`, fakeUser);
+        handleError("Test 17", "Unexpected Success: Logged in with an unregistered email", {});
+    } catch (error) {
+        if (error.response && error.response.status === 401) {
+            console.log("[Test 17] Success: Unauthorized access for unregistered email.");
+        } else {
+            handleError("Test 17", "Login with unregistered email", error);
         }
     }
 
