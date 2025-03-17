@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import authService from "../services/authServices.js";
 import HttpError from "./HttpError.js";
 
-import SECRET_KEY from "../config/config.js";
+import {SECRET_KEY} from "../config/config.js";
 
 const authMiddleware = async (req, res, next) => {
     try {

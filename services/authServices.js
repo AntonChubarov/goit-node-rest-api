@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import usersRepository from "../repositories/usersRepository.js";
 import HttpError from "../helpers/HttpError.js";
 
-import SECRET_KEY from "../config/config.js";
+import {SECRET_KEY} from "../config/config.js";
 
 const validSubscriptions = ["starter", "pro", "business"];
 
