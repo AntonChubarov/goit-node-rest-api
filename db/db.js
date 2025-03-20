@@ -1,23 +1,32 @@
 import {Sequelize} from "sequelize";
 
+
+import {DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USER} from "../config/config.js";
+
+
 class Database {
     constructor() {
         if (Database.instance) {
             return Database.instance;
         }
 
-        this.sequelize = new Sequelize("goitnode", "anton", "DNmdeMDfZ7SqtA2TcB9XIhBQ2pXfD7yN", {
-            host: "dpg-culm82ggph6c73df16bg-a.virginia-postgres.render.com",
-            port: 5432,
-            dialect: "postgres",
-            dialectOptions: {
-                ssl: {
-                    require: true,
-                    rejectUnauthorized: true
-                }
-            },
-            logging: false,
-        });
+        this.sequelize = new Sequelize(
+            DB_NAME,
+            DB_USER,
+            DB_PASSWORD,
+            {
+                host: DB_HOST,
+                port: DB_PORT,
+                dialect: "postgres",
+                dialectOptions: {
+                    ssl: {
+                        require: true,
+                        rejectUnauthorized: false
+                    }
+                },
+                logging: false,
+            }
+        );
 
         this._connect();
         Database.instance = this;

@@ -25,6 +25,8 @@ Install dependencies:
 npm i
 ```
 
+Create `.env` file based on `example.env`
+
 Run Web application:
 ```shell
 npm start
