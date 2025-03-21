@@ -27,12 +27,17 @@ npm i
 
 Create `.env` file based on `example.env`
 
+Run Unit tests (optional)
+```shell
+npm test
+```
+
 Run Web application:
 ```shell
 npm start
 ```
 
-To test the application use (in another terminal session):
+To test the application API (in another terminal session):
 ```shell
-npm test
+npm run api-test
 ```

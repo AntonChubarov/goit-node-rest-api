@@ -22,3 +22,5 @@ ALTER TABLE contacts
 ADD CONSTRAINT fk_contacts_user FOREIGN KEY (owner) REFERENCES users(id) ON DELETE CASCADE;
 
 CREATE INDEX idx_contacts_owner ON contacts(owner);
+
+ALTER TABLE users ADD COLUMN IF NOT EXISTS avatar_url VARCHAR(255);
