@@ -1,41 +1,9 @@
-import {DataTypes} from "sequelize";
-import dbInstance from "../db/db.js";
-
-const {sequelize} = dbInstance;
-
-const User = sequelize.define("User", {
-    id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        primaryKey: true,
-    },
-    email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-    },
-    password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    subscription: {
-        type: DataTypes.ENUM,
-        values: ["starter", "pro", "business"],
-        defaultValue: "starter",
-    },
-    token: {
-        type: DataTypes.STRING,
-        defaultValue: null,
-    },
-}, {
-    tableName: "users",
-    timestamps: false,
-});
+import User from "./models/Users.js";
 
 class UsersRepository {
-    async create({email, password}) {
+    async create({email, password, avatarURL}) {
         try {
-            return await User.create({email, password});
+            return await User.create({email: email, password: password, avatarURL: avatarURL});
         } catch (error) {
             console.error(`[DB] Error creating user ${email}:`, error);
             throw error;
@@ -69,8 +37,11 @@ class UsersRepository {
         );
         return rowsUpdated ? updatedUser : null;
     }
+
+    async updateAvatar(userId, avatarURL) {
+        await User.update({avatarURL}, {where: {id: userId}});
+    }
 }
 
 const usersRepository = new UsersRepository();
 export default usersRepository;
-export {User};
