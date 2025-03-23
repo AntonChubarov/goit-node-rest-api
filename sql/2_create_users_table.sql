@@ -24,3 +24,6 @@ ADD CONSTRAINT fk_contacts_user FOREIGN KEY (owner) REFERENCES users(id) ON DELE
 CREATE INDEX idx_contacts_owner ON contacts(owner);
 
 ALTER TABLE users ADD COLUMN IF NOT EXISTS avatar_url VARCHAR(255);
+
+ALTER TABLE users ADD COLUMN IF NOT EXISTS verified BOOLEAN DEFAULT FALSE;
+ALTER TABLE users ADD COLUMN IF NOT EXISTS verification_token VARCHAR(255);
