@@ -18,7 +18,7 @@ class EmailSender {
     }
 
     async sendConfirmationEmail(recipientEmail, confirmationToken) {
-        const confirmationLink = `${this.schema}://${this.domain}/verify/${confirmationToken}`;
+        const confirmationLink = `${this.schema}://${this.domain}/api/auth/verify/${confirmationToken}`;
 
         const mailOptions = {
             from: this.mailFrom,

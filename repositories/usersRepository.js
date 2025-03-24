@@ -3,7 +3,7 @@ import User from "./models/Users.js";
 class UsersRepository {
     async create({email, password, avatarURL, verificationToken}) {
         try {
-            return await User.create({email: email, password: password, avatarURL: avatarURL});
+            return await User.create({email: email, password: password, avatarURL: avatarURL, verificationToken: verificationToken});
         } catch (error) {
             console.error(`[DB] Error creating user ${email}:`, error);
             throw error;

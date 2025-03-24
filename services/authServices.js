@@ -129,7 +129,9 @@ class AuthService {
         }
 
         const user = await usersRepository.findByEmail(email);
-        if (!user) throw HttpError(404, "User not found");
+        if (!user) {
+            return // to prevent determination of registered emails
+        }
 
         if (user.verified) throw HttpError(409, "Verification has already been passed");
 
