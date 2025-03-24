@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import usersRepository from "../repositories/usersRepository.js";
 import HttpError from "../helpers/HttpError.js";
+import gravatar from "gravatar";
 
 import {SECRET_KEY} from "../config/config.js";
 
@@ -17,10 +18,12 @@ class AuthService {
 
         try {
             const hashedPassword = await bcrypt.hash(password, 12);
-            const newUser = await usersRepository.create({email, password: hashedPassword});
+            const avatarURL = gravatar.url(email, {s: "250", d: "retro"}, true);
+            const newUser = await usersRepository.create({email, password: hashedPassword, avatarURL});
 
             return {
                 email: newUser.email,
+                avatarURL: newUser.avatarURL,
                 subscription: newUser.subscription,
             };
         } catch (error) {
@@ -58,6 +61,7 @@ class AuthService {
             token,
             user: {
                 email: user.email,
+                avatarURL: user.avatarURL,
                 subscription: user.subscription,
             },
         };

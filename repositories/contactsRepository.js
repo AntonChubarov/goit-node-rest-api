@@ -1,41 +1,4 @@
-import {DataTypes} from "sequelize";
-import dbInstance from "../db/db.js";
-import {User} from "./usersRepository.js";
-
-const {sequelize} = dbInstance;
-
-const Contact = sequelize.define("Contact", {
-    id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        primaryKey: true,
-    },
-    name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    phone: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    favorite: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
-    },
-    owner: {
-        type: DataTypes.UUID,
-        allowNull: false,
-    },
-}, {
-    tableName: "contacts",
-    timestamps: false,
-});
-
-Contact.belongsTo(User, {foreignKey: "owner", onDelete: "CASCADE"});
+import Contact from "./models/Contacts.js";
 
 class ContactsRepository {
     async getAll(userId, filters = {}, limit, offset) {
@@ -84,4 +47,3 @@ class ContactsRepository {
 
 const contactsRepository = new ContactsRepository();
 export default contactsRepository;
-export {Contact};
