@@ -1,8 +1,10 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import usersRepository from "../repositories/usersRepository.js";
+import emailSender from "../clients/emailClient.js";
 import HttpError from "../helpers/HttpError.js";
 import gravatar from "gravatar";
+import { v4 as uuidv4 } from "uuid";
 
 import {SECRET_KEY} from "../config/config.js";
 
@@ -19,7 +21,11 @@ class AuthService {
         try {
             const hashedPassword = await bcrypt.hash(password, 12);
             const avatarURL = gravatar.url(email, {s: "250", d: "retro"}, true);
-            const newUser = await usersRepository.create({email, password: hashedPassword, avatarURL});
+            const verificationToken = uuidv4();
+
+            const newUser = await usersRepository.create({email, password: hashedPassword, avatarURL, verificationToken});
+
+            await emailSender.sendConfirmationEmail(email, verificationToken);
 
             return {
                 email: newUser.email,
@@ -49,6 +55,11 @@ class AuthService {
         if (!isPasswordValid) {
             console.error(`[AUTH] Login failed: Incorrect password for email ${email}`);
             throw HttpError(401, "Email or password is wrong");
+        }
+
+        if (!user.verified) {
+            console.error(`[AUTH] Login failed: Email ${user.email} is not verified`);
+            throw HttpError(401, "Email not verified");
         }
 
         const token = jwt.sign({id: user.id}, SECRET_KEY, {expiresIn: "1h"});
@@ -99,6 +110,35 @@ class AuthService {
         }
 
         return user;
+    }
+
+    async verifyEmail(verificationToken) {
+        const user = await usersRepository.findByVerificationToken(verificationToken);
+
+        if (!user) {
+            throw HttpError(404, "User not found");
+        }
+
+        await usersRepository.verifyUser(user.id);
+    }
+
+    async resendVerificationEmail(email) {
+        if (!email) {
+            throw HttpError(400, "missing required field email");
+        }
+
+        const user = await usersRepository.findByEmail(email);
+        if (!user) {
+            return // to prevent determination of registered emails
+        }
+
+        if (user.verified) throw HttpError(409, "Verification has already been passed");
+
+        const verificationToken = uuidv4();
+
+        await usersRepository.updateVerificationToken(user.id, verificationToken);
+
+        await emailSender.sendConfirmationEmail(user.email, verificationToken);
     }
 }
 

@@ -1,9 +1,9 @@
 import User from "./models/Users.js";
 
 class UsersRepository {
-    async create({email, password, avatarURL}) {
+    async create({email, password, avatarURL, verificationToken}) {
         try {
-            return await User.create({email: email, password: password, avatarURL: avatarURL});
+            return await User.create({email: email, password: password, avatarURL: avatarURL, verificationToken: verificationToken});
         } catch (error) {
             console.error(`[DB] Error creating user ${email}:`, error);
             throw error;
@@ -40,6 +40,18 @@ class UsersRepository {
 
     async updateAvatar(userId, avatarURL) {
         await User.update({avatarURL}, {where: {id: userId}});
+    }
+
+    async findByVerificationToken(token) {
+        return await User.findOne({where: {verificationToken: token}});
+    }
+
+    async verifyUser(userId) {
+        await User.update({verified: true, verificationToken: null}, {where: {id: userId}});
+    }
+
+    async updateVerificationToken(userId, verificationToken) {
+        await User.update({verificationToken}, {where: {id: userId}});
     }
 }
 
