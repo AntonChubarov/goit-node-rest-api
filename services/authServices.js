@@ -7,7 +7,6 @@ import gravatar from "gravatar";
 import { v4 as uuidv4 } from "uuid";
 
 import {SECRET_KEY} from "../config/config.js";
-import {resendVerificationEmail} from "../controllers/authControllers.js";
 
 const validSubscriptions = ["starter", "pro", "business"];
 
@@ -139,7 +138,7 @@ class AuthService {
 
         await usersRepository.updateVerificationToken(user.id, verificationToken);
 
-        await emailSender.sendConfirmationEmail(user.email, user.verificationToken);
+        await emailSender.sendConfirmationEmail(user.email, verificationToken);
     }
 }
 
